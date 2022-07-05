@@ -1,2 +1,2 @@
-# BoilerplateProject
-A boilerplate for TDD .Net Core 6 Web API.
+# Pebolim-Backend
+A API backend for Pebolim Unity3d game using .Net Core 6 Web API.
