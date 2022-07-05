@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoilerplateProject.Data\BoilerplateProject.Data.csproj" />
-    <ProjectReference Include="..\BoilerplateProject.Domain\BoilerplateProject.Domain.csproj" />
+    <ProjectReference Include="..\BoilerplateProject.Data\Pebolim.Data.csproj" />
+    <ProjectReference Include="..\BoilerplateProject.Domain\Pebolim.Domain.csproj" />
   </ItemGroup>
 
 </Project>
