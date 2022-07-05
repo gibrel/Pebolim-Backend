@@ -22,12 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\BoilerplateProject.Domain\Pebolim.Domain.csproj" />
+    <ProjectReference Include="..\BoilerplateProject.Service\Pebolim.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoilerplateProject.Domain\BoilerplateProject.Domain.csproj" />
-    <ProjectReference Include="..\BoilerplateProject.Service\BoilerplateProject.Service.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
