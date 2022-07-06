@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoilerplateProject.Domain\Pebolim.Domain.csproj" />
+    <ProjectReference Include="..\Pebolim.Domain\Pebolim.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
