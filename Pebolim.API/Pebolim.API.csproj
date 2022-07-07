@@ -26,9 +26,4 @@
     <ProjectReference Include="..\Pebolim.Service\Pebolim.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
