@@ -21,7 +21,7 @@ namespace Pebolim.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = _configuration.ConnectionString;
+            string connectionString = _configuration.WebApiDatabase ?? "server=localhost; database=database; user=user; password=password";
 
             //optionsBuilder.UseInMemoryDatabase("TestDb");
 
