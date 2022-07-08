@@ -1,0 +1,6 @@
+﻿C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Entities\BaseEntity.cs
+C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Entities\User.cs
+C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Interfaces\IBaseRepository.cs
+C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Interfaces\IBaseService.cs
+C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Interfaces\IUserRepository.cs
+C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Domain\Interfaces\IUserService.cs
