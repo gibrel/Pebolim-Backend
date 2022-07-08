@@ -2,6 +2,7 @@
 using FluentValidation;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
+using System.Data.Entity.Core;
 
 namespace Pebolim.Service.Services
 {
@@ -69,7 +70,7 @@ namespace Pebolim.Service.Services
         protected void Validate(TEntity obj, AbstractValidator<TEntity> validator)
         {
             if (obj == null)
-                throw new Exception("Registry not detected!");
+                throw new ObjectNotFoundException("Registry not detected!");
 
             validator.ValidateAndThrow(obj);
         }
