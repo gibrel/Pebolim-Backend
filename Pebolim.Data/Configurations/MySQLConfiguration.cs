@@ -1,6 +1,6 @@
 ﻿namespace Pebolim.Data.Configurations
 {
-    public class MySQLConfiguration
+    public class MySqlConfiguration
     {
         public string? WebApiDatabase { get; set; }
     }

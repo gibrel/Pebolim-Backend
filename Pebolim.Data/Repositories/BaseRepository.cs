@@ -1,4 +1,5 @@
-﻿using Pebolim.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Pebolim.Data.Context;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
 
@@ -6,19 +7,19 @@ namespace Pebolim.Data.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly MySQLContext _mySQLContext;
+        protected readonly MySqlContext _mySqlContext;
 
-        public BaseRepository(MySQLContext mySQLContext)
+        public BaseRepository(MySqlContext mySqlContext)
         {
-            _mySQLContext = mySQLContext;
+            _mySqlContext = mySqlContext;
         }
 
         public virtual async Task<bool> Insert(TEntity obj)
         {
             try
             {
-                _mySQLContext.Set<TEntity>().Add(obj);
-                _mySQLContext.SaveChanges();
+                await _mySqlContext.Set<TEntity>().AddAsync(obj);
+                _mySqlContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -31,20 +32,30 @@ namespace Pebolim.Data.Repositories
 
         public virtual async Task<IList<TEntity>> Select()
         {
-            var entities = _mySQLContext.Set<TEntity>().ToList();
+            var entities = await _mySqlContext.Set<TEntity>().ToListAsync();
             return entities;
         }
 
         public virtual async Task<TEntity?> Select(int id)
-            => _mySQLContext.Set<TEntity>().SingleOrDefault(x => x.Id == id);
+        {
+            try
+            {
+                var entity =  await _mySqlContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
 
         public virtual async Task<bool> Update(TEntity obj)
         {
             try
             {
-                _mySQLContext.Entry(obj).State =
-                    Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _mySQLContext.SaveChanges();
+                _mySqlContext.Entry(obj).State = EntityState.Modified;
+                await _mySqlContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -59,8 +70,13 @@ namespace Pebolim.Data.Repositories
         {
             try
             {
-                _mySQLContext.Set<TEntity>().Remove(await Select(id));
-                _mySQLContext.SaveChanges();
+                var entity = await Select(id);
+
+                if (entity == null)
+                    return false;
+
+                _mySqlContext.Set<TEntity>().Remove(entity);
+                _mySqlContext.SaveChanges();
             }
             catch (Exception ex)
             {

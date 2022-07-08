@@ -6,7 +6,7 @@ namespace Pebolim.Data.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(MySQLContext mySQLContext) : base(mySQLContext)
+        public UserRepository(MySqlContext mySqlContext) : base(mySqlContext)
         {
 
         }

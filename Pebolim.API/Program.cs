@@ -8,7 +8,6 @@ using Pebolim.Data.Repositories;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
 using Pebolim.Service.Services;
-//using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,16 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder.Services);
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(
-    //c => {
-    //    // Set the comments path for the Swagger JSON and UI.
-    //    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    //    c.IncludeXmlComments(xmlPath);
-    //}
-);
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -38,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 using (var scope = app.Services.CreateScope())
-using (var context = scope.ServiceProvider.GetService<MySQLContext>())
+using (var context = scope.ServiceProvider.GetService<MySqlContext>())
     context?.Database.Migrate();
 
 app.UseHttpsRedirection();
@@ -51,7 +44,7 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.Configure<MySQLConfiguration>(
+    services.Configure<MySqlConfiguration>(
         builder.Configuration.GetSection("ConnectionStrings"));
 
     services.AddSingleton(new MapperConfiguration(config =>
@@ -59,7 +52,7 @@ void ConfigureServices(IServiceCollection services)
         config.AddProfile<UserMapProfile>();
     }).CreateMapper());
 
-    services.AddDbContext<MySQLContext>();
+    services.AddDbContext<MySqlContext>();
 
     builder.Services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
     builder.Services.AddScoped<IBaseService<User>, BaseService<User>>();

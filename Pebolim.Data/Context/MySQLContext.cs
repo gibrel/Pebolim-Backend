@@ -6,26 +6,23 @@ using Pebolim.Domain.Entities;
 
 namespace Pebolim.Data.Context
 {
-    public class MySQLContext : DbContext
+    public class MySqlContext : DbContext
     {
-        private readonly MySQLConfiguration _configuration;
+        private readonly MySqlConfiguration _configuration;
 
-        public MySQLContext(
-            IOptions<MySQLConfiguration> configuration,
-            DbContextOptions<MySQLContext> options) : base(options)
+        public MySqlContext(
+            IOptions<MySqlConfiguration> configuration,
+            DbContextOptions<MySqlContext> options) : base(options)
         {
             _configuration = configuration.Value;
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User>? Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = _configuration.WebApiDatabase ?? "server=localhost; database=database; user=user; password=password";
 
-            //optionsBuilder.UseInMemoryDatabase("TestDb");
-
-            // optionsBuilder.UseMySQL("server=localhost;database=library;user=user;password=password");
             optionsBuilder.UseMySql(connectionString, 
                 ServerVersion.AutoDetect(connectionString), opt =>
             {
