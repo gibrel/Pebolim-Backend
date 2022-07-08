@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Pebolim.Domain.Entities;
 
 namespace Pebolim.API.Configurations
 {

@@ -23,7 +23,7 @@ namespace Pebolim.Data.Context
         {
             string connectionString = _configuration.WebApiDatabase ?? "server=localhost; database=database; user=user; password=password";
 
-            optionsBuilder.UseMySql(connectionString,
+            optionsBuilder.UseMySql(connectionString, 
                 ServerVersion.AutoDetect(connectionString), opt =>
             {
                 opt.CommandTimeout(120);
