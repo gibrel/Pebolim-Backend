@@ -40,7 +40,7 @@ namespace Pebolim.Data.Repositories
         {
             try
             {
-                var entity =  await _mySqlContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+                var entity = await _mySqlContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
                 return entity;
             }
             catch (Exception ex)
