@@ -1,7 +1,7 @@
-﻿using Pebolim.API.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Pebolim.API.Models;
 using Pebolim.Domain.Interfaces;
 using Pebolim.Service.Validators;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Pebolim.API.Controllers
 {
