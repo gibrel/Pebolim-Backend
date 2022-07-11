@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <CodeAnalysisRuleSet>..\.sonarlint\unfailing-divinely-diffused-undoing-retrain-revision-strategic6-life-scoundrel-deviantcsharp.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Pebolim.API.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
