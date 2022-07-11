@@ -8,8 +8,8 @@ using Pebolim.Data.Context;
 
 namespace Pebolim.Data.Migrations
 {
-    [DbContext(typeof(MySqlContext))]
-    partial class MySqlContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MySqlContexto))]
+    partial class MySqlContextModelSnapshoto : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

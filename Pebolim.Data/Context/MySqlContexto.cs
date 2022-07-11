@@ -6,13 +6,13 @@ using Pebolim.Domain.Entities;
 
 namespace Pebolim.Data.Context
 {
-    public class MySqlContext : DbContext
+    public class MySqlContexto : DbContext
     {
-        private readonly MySqlConfiguration _configuration;
+        private readonly MySqlConfigurationo _configuration;
 
-        public MySqlContext(
-            IOptions<MySqlConfiguration> configuration,
-            DbContextOptions<MySqlContext> options) : base(options)
+        public MySqlContexto(
+            IOptions<MySqlConfigurationo> configuration,
+            DbContextOptions<MySqlContexto> options) : base(options)
         {
             _configuration = configuration.Value;
         }
