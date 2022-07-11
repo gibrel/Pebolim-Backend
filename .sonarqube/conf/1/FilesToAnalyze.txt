@@ -1,8 +1,0 @@
-﻿C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Configurations\MySqlConfiguration.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Context\MySqlContext.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Mapping\UserMap.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Migrations\20220707161450_Migration.000.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Migrations\20220707161450_Migration.000.Designer.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Migrations\MySqlContextModelSnapshot.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Repositories\BaseRepository.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Data\Repositories\UserRepository.cs
