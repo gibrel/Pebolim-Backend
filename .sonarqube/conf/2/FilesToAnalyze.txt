@@ -1,3 +1,0 @@
-﻿C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Service\Services\BaseService.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Service\Services\UserService.cs
-C:\Users\gibre\Projects\Pebolim\Pebolim-Backend\Pebolim.Service\Validators\UserValidator.cs
