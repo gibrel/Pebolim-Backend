@@ -44,6 +44,9 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
+    services.Configure<WebApiSettings>(
+        builder.Configuration.GetSection("Settings"));
+
     services.Configure<MySqlConfiguration>(
         builder.Configuration.GetSection("ConnectionStrings"));
 
