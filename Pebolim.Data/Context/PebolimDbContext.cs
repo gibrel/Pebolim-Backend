@@ -36,11 +36,6 @@ namespace Pebolim.Data.Context
                     opt.CommandTimeout(120);
                 });
             }
-            //else
-            //{
-            //    optionsBuilder.UseSqlite("DataSource=:memory:");
-            //    SQLitePCL.Batteries.Init();
-            //}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
