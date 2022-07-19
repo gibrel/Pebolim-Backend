@@ -8,15 +8,17 @@ namespace Pebolim.UnitTest.Fixtures
     {
         public static readonly Random _random = new();
 
-        public static User GenerateUser()
+        public static User GenerateUser(int id = 0)
         {
             var salt = GenerateRandomSalt();
+            var userId = id < 0 ? RandomNumberGenerator.GetInt32(2000000000) : id;
+
             return new User(
                 username: GenerateRandomUsername(),
                 passwordHash: GenerateRandomPasswordHash(salt),
                 salt: salt)
             {
-                Id = 0
+                Id = userId
             };
         }
 
@@ -93,7 +95,7 @@ namespace Pebolim.UnitTest.Fixtures
 
             var salt = Convert.FromBase64String(saltString);
             using var hashGenerator = new Rfc2898DeriveBytes(password, salt);
-            hashGenerator.IterationCount = RandomNumberGenerator.GetInt32(10101) + 1;
+            hashGenerator.IterationCount = RandomNumberGenerator.GetInt32(10000) + 102;
             var bytes = hashGenerator.GetBytes(64);
 
             return Convert.ToBase64String(bytes);
