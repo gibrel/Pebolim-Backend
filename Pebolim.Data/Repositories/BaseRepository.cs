@@ -7,19 +7,19 @@ namespace Pebolim.Data.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly MySqlContext _mySqlContext;
+        protected readonly PebolimDbContext _pebolimDbContext;
 
-        public BaseRepository(MySqlContext mySqlContext)
+        public BaseRepository(PebolimDbContext pebolimDbContext)
         {
-            _mySqlContext = mySqlContext;
+            _pebolimDbContext = pebolimDbContext;
         }
 
         public virtual async Task<bool> Insert(TEntity obj)
         {
             try
             {
-                await _mySqlContext.Set<TEntity>().AddAsync(obj);
-                _mySqlContext.SaveChanges();
+                await _pebolimDbContext.Set<TEntity>().AddAsync(obj);
+                _pebolimDbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace Pebolim.Data.Repositories
 
         public virtual async Task<IList<TEntity>> Select()
         {
-            var entities = await _mySqlContext.Set<TEntity>().ToListAsync();
+            var entities = await _pebolimDbContext.Set<TEntity>().ToListAsync();
             return entities;
         }
 
@@ -40,7 +40,7 @@ namespace Pebolim.Data.Repositories
         {
             try
             {
-                var entity = await _mySqlContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+                var entity = await _pebolimDbContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
                 return entity;
             }
             catch (Exception ex)
@@ -54,8 +54,8 @@ namespace Pebolim.Data.Repositories
         {
             try
             {
-                _mySqlContext.Entry(obj).State = EntityState.Modified;
-                await _mySqlContext.SaveChangesAsync();
+                _pebolimDbContext.Entry(obj).State = EntityState.Modified;
+                await _pebolimDbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -75,8 +75,8 @@ namespace Pebolim.Data.Repositories
                 if (entity == null)
                     return false;
 
-                _mySqlContext.Set<TEntity>().Remove(entity);
-                _mySqlContext.SaveChanges();
+                _pebolimDbContext.Set<TEntity>().Remove(entity);
+                _pebolimDbContext.SaveChanges();
             }
             catch (Exception ex)
             {

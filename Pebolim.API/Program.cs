@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 using (var scope = app.Services.CreateScope())
-using (var context = scope.ServiceProvider.GetService<MySqlContext>())
+using (var context = scope.ServiceProvider.GetService<PebolimDbContext>())
     context?.Database.Migrate();
 
 app.UseHttpsRedirection();
@@ -47,7 +47,7 @@ void ConfigureServices(IServiceCollection services)
     services.Configure<WebApiSettings>(
         builder.Configuration.GetSection("Settings"));
 
-    services.Configure<MySqlConfiguration>(
+    services.Configure<PebolimConfiguration>(
         builder.Configuration.GetSection("ConnectionStrings"));
 
     services.AddSingleton(new MapperConfiguration(config =>
@@ -55,7 +55,7 @@ void ConfigureServices(IServiceCollection services)
         config.AddProfile<UserMapProfile>();
     }).CreateMapper());
 
-    services.AddDbContext<MySqlContext>();
+    services.AddDbContext<PebolimDbContext>();
 
     builder.Services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
     builder.Services.AddScoped<IBaseService<User>, BaseService<User>>();
