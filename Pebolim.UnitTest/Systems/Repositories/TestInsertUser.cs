@@ -1,5 +1,4 @@
 ﻿using AutoFixture.Xunit2;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Pebolim.Data.Context;
@@ -13,45 +12,29 @@ namespace Pebolim.UnitTest.Systems.Repositories
     public class TestInsertUser
     {
 
-        [Theory]
-        [AutoDomainData]
-        public async Task InsertUser_OnSucess_ShouldReturnTrue(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+        [Fact]
+        public async Task InsertUser_OnSucess_ShouldReturnTrue()
         {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new UserRepository(context);
             var user = UserFixture.GenerateUser();
 
-            var result = await sut.Insert(user);
+            var response = await sut.Insert(user);
+            var userId = user.Id;
 
-            result.Should().BeTrue();
-        }
+            Assert.NotEqual(0, userId);
 
-        [Theory]
-        [AutoDomainData]
-        public async Task InsertUser_OnRun_InvokeSaveChangesOnce(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
-        {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
-            var user = UserFixture.GenerateUser();
+            var userCount = context.Users?.Count(x => x.Id == userId);
 
-            await sut.Insert(user);
-
-            mockMySqlContext.Verify(m => m.SaveChanges(), Times.Once());
+            Assert.True(response);
+            Assert.Equal(1, userCount);
         }
 
         [Theory]
         [AutoDomainData]
         public async Task InsertUser_OnRun_InvokeSetOnce(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
@@ -64,21 +47,17 @@ namespace Pebolim.UnitTest.Systems.Repositories
             mockMySqlContext.Verify(m => m.Set<User>(), Times.Once());
         }
 
-        [Theory]
-        [AutoDomainData]
-        public async Task InsertUser_OnSucess_ShouldUpdateUserId(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+        [Fact]
+        public async Task InsertUser_OnSucess_ShouldUpdateUserId()
         {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new UserRepository(context);
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);
+            var userId = user.Id;
 
-            user.Id.Should().NotBe(0);
+            Assert.NotEqual(0, userId);
         }
 
     }

@@ -17,7 +17,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
         [AutoDomainData]
         public async Task SelectByIdUser_OnRun_InvokeSaveChangesOnce(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
@@ -25,35 +25,35 @@ namespace Pebolim.UnitTest.Systems.Repositories
             var sut = new UserRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
-            await sut.Insert(user);
             await sut.Select(user.Id);
 
-            mockMySqlContext.Verify(m => m.Set<User>(), Times.Exactly(2));
+            mockMySqlContext.Verify(m => m.Set<User>(), Times.Once());
         }
 
-        [Theory]
-        [AutoDomainData]
-        public async Task SelectByIdUser_OnSucess_ShouldReturnUser(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+        [Fact]
+        public async Task SelectByIdUser_OnSucess_ShouldReturnUser()
         {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new UserRepository(context);
             var user = UserFixture.GenerateUser();
 
-            await sut.Insert(user);
-            var result = await sut.Select(user.Id);
+            var response = await sut.Insert(user);
+            var userId = user.Id;
+            var userCount = context.Users?.Count(x => x.Id == userId);
 
-            result.Should().BeOfType<User>();
+            Assert.True(response);
+            Assert.Equal(1, userCount);
+
+            var retunedUser = await sut.Select(userId);
+
+            retunedUser.Should().BeOfType<User>();
         }
 
         [Theory]
         [AutoDomainData]
         public async Task SelectByIdUser_OnSucess_ShouldHaveSameId(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext)
+            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
@@ -62,9 +62,9 @@ namespace Pebolim.UnitTest.Systems.Repositories
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);
-            var result = await sut.Select(user.Id);
+            var returnedUser = await sut.Select(user.Id);
 
-            result?.Id.Should().Be(user.Id);
+            returnedUser?.Id.Should().Be(user.Id);
         }
     }
 }

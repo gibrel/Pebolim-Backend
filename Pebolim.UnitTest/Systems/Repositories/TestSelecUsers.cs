@@ -1,8 +1,5 @@
-﻿using AutoFixture.Xunit2;
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentAssertions;
 using Moq;
-using Pebolim.Data.Context;
 using Pebolim.Data.Repositories;
 using Pebolim.Domain.Entities;
 using Pebolim.UnitTest.Fixtures;
@@ -15,39 +12,11 @@ namespace Pebolim.UnitTest.Systems.Repositories
     {
         [Theory]
         [AutoDomainData]
-        public async Task SelectUsers_OnRun_InvokeSaveChanges(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext,
-            [Range(3, 6)] int numberOfUsers)
-        {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
-
-            List<User> insertedUsers = new();
-            for (int i = 0; i < numberOfUsers; i++)
-            {
-                var user = UserFixture.GenerateUser();
-                await sut.Insert(user);
-                insertedUsers.Add(user);
-            }
-            await sut.Select();
-
-            mockMySqlContext.Verify(m => m.Set<User>(), Times.AtMost(numberOfUsers + 1));
-        }
-
-        [Theory]
-        [AutoDomainData]
         public async Task SelectUsers_OnSucess_ShouldReturnListOfUsers(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext,
             [Range(3, 6)] int numberOfUsers)
         {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new UserRepository(context);
 
             List<User> insertedUsers = new();
             for (int i = 0; i < numberOfUsers; i++)
@@ -64,14 +33,10 @@ namespace Pebolim.UnitTest.Systems.Repositories
         [Theory]
         [AutoDomainData]
         public async Task SelectUsers_OnSucess_ShouldHaveExpectedSize(
-            [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<MySqlContext> mockMySqlContext,
             [Range(3, 6)] int numberOfUsers)
         {
-            mockMySqlContext
-                .Setup(context => context.Users)
-                .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new UserRepository(context);
 
             List<User> insertedUsers = new();
             for (int i = 0; i < numberOfUsers; i++)
