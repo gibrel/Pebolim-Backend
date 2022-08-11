@@ -15,7 +15,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
     {
         [Theory]
         [AutoDomainData]
-        public async Task CreateUser_OnSucess_ReturnsStatusCode200Async(
+        public async Task CreateUser_OnSucess_ReturnsStatusCode201Async(
             [Frozen] Mock<IUserService> mockUserService,
             CreateUserModel newUser,
             GetUserModel user)
@@ -27,7 +27,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
 
             var result = await sut.Create(newUser) as ObjectResult;
 
-            result?.StatusCode.Should().Be(200);
+            result?.StatusCode.Should().Be(201);
         }
 
         [Theory]
@@ -62,7 +62,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
 
             var result = await sut.Create(newUser);
 
-            result.Should().BeOfType<OkObjectResult>();
+            result.Should().BeOfType<CreatedResult>();
             var objectResult = result as ObjectResult;
             objectResult?.Value.Should().BeOfType<GetUserModel>();
         }
