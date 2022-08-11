@@ -26,7 +26,7 @@ namespace Pebolim.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (_configuration.Equals("true"))
+            if (_configuration.MySQLDb.Equals("true"))
             {
                 string connectionString = _configuration.WebApiDatabase ?? "server=localhost; port=3306; database=pebolim_db_d; user=pebolim_user; password=V8JjZdW!gx8E8wWp";
 
