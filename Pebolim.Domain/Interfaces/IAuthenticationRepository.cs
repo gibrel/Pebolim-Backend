@@ -6,6 +6,6 @@ namespace Pebolim.Domain.Interfaces
     {
 
         Task<bool> ExistsUsername(string username);
-        Task<User> SelectByUsername(string username);
+        Task<User?> SelectByUsername(string username);
     }
 }
