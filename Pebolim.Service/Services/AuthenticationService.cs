@@ -40,7 +40,7 @@ namespace Pebolim.Service.Services
         {
             const string FailureMessage = "Invalid login attempt";
 
-            User user = await _authenticationRepository.SelectByUsername(username);
+            var user = await _authenticationRepository.SelectByUsername(username);
             if (user == null ||
                 user.PasswordHash != AuthenticationHelpers.ComputeHash(password, user.Salt))
                 return (false, FailureMessage);
