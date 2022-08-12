@@ -1,6 +1,7 @@
 ﻿using Pebolim.Data.Context;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pebolim.Data.Repositories
 {
@@ -13,12 +14,16 @@ namespace Pebolim.Data.Repositories
 
         public async Task<bool> ExistsUsername(string username)
         {
-            throw new NotImplementedException();
+            if (_pebolimDbContext.Users != null)
+                return await _pebolimDbContext.Users.AnyAsync(u => u.Username == username);
+            return true;
         }
 
-        public async Task<User> SelectByUsername(string username)
+        public async Task<User?> SelectByUsername(string username)
         {
-            throw new NotImplementedException();
+            if (_pebolimDbContext.Users != null)
+                return await _pebolimDbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return null;
         }
     }
 }
