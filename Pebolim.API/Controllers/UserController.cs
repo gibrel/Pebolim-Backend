@@ -41,8 +41,8 @@ namespace Pebolim.API.Controllers
         /// </remarks>
         /// <param name="newUser"><c>CreateUserModel</c> class object with user data.</param>
         /// <returns>Created <c>GetUserModel</c> class object with data of the created user.</returns>
-        [HttpPut("CreateUser")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserModel))]
+        [HttpPost("CreateUser")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(GetUserModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Create([FromBody] CreateUserModel newUser)
@@ -55,7 +55,7 @@ namespace Pebolim.API.Controllers
 
             if (createdUser != null)
             {
-                return Ok(createdUser);
+                return Created("[controller]/CreateUser", createdUser);
             }
 
             return Conflict("Could not create user, internal operation failure.");
@@ -89,7 +89,7 @@ namespace Pebolim.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetUserModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get([FromBody] int id)
         {
             if (id <= 0)
                 return BadRequest($"Invalid user id:'{id}'.");
@@ -148,7 +148,7 @@ namespace Pebolim.API.Controllers
         [HttpDelete("DeleteUser")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody] int id)
         {
             if (id <= 0)
                 return BadRequest($"Invalid user id:'{id}'.");

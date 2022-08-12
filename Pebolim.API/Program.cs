@@ -7,6 +7,7 @@ using Pebolim.Data.Context;
 using Pebolim.Data.Repositories;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
+using Pebolim.Service.Configurations;
 using Pebolim.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +45,7 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services)
 {
-    services.Configure<WebApiSettings>(
+    services.Configure<WebApiConfigurations>(
         builder.Configuration.GetSection("Settings"));
 
     services.Configure<PebolimConfiguration>(
@@ -59,6 +60,8 @@ void ConfigureServices(IServiceCollection services)
 
     builder.Services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
     builder.Services.AddScoped<IBaseService<User>, BaseService<User>>();
+    builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+    builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IUserService, UserService>();
 
