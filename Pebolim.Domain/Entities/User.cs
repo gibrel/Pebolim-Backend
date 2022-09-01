@@ -10,6 +10,7 @@ namespace Pebolim.Domain.Entities
         public string PasswordHash { get; set; }
         [Required]
         public string Salt { get; set; }
+        public List<Profile> Profiles { get; set; } = new List<Profile>();
 
         public User(string username, string passwordHash, string salt)
         {
