@@ -14,7 +14,8 @@ namespace Pebolim.Domain.Entities
         [Required]
         public string SecondaryColour { get; set; }
         public Formation Formation { get; set; } = Formation.Formation_3_4_3;
-        public UserProfile? Profile { get; set; }
+        public UserProfile? UserProfile { get; set; }
+        public int? UserProfileId { get; set; }
 
         public Team(string teamName, string base64Flag, string primaryColour, string secondaryColour)
         {

@@ -10,6 +10,7 @@ namespace Pebolim.Domain.Entities
         public string Name { get; set; }
         public Team? Team { get; set; }
 
+        protected UserProfile() { }
 
         public UserProfile(User user, string name, Team? team = null)
         {
