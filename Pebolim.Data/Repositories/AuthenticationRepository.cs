@@ -7,7 +7,7 @@ namespace Pebolim.Data.Repositories
 {
     public class AuthenticationRepository : BaseRepository<User>, IAuthenticationRepository
     {
-        public AuthenticationRepository(PebolimDbContext pebolimDbContext) : base(pebolimDbContext)
+        public AuthenticationRepository(DatabaseContext pebolimDbContext) : base(pebolimDbContext)
         {
 
         }
