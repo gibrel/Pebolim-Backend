@@ -9,7 +9,7 @@ using Pebolim.Data.Context;
 
 namespace Pebolim.Data.Migrations
 {
-    [DbContext(typeof(PebolimDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20220707161450_Migration.000")]
     partial class Migration000
     {
