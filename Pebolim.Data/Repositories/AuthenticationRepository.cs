@@ -1,7 +1,7 @@
-﻿using Pebolim.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Pebolim.Data.Context;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Pebolim.Data.Repositories
 {
