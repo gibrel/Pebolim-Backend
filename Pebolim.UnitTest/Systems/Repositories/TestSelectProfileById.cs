@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Repositories
 {
-    public class TestSelectByIdUser
+    public class TestSelectProfileById
     {
 
         [Theory]
@@ -22,7 +22,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var sut = new RegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
             await sut.Select(user.Id);
@@ -34,7 +34,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
         public async Task SelectByIdUser_OnSucess_ShouldReturnUser()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new UserRepository(context);
+            var sut = new RegisterRepository(context);
             var user = UserFixture.GenerateUser();
 
             var response = await sut.Insert(user);
@@ -58,7 +58,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var sut = new RegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);

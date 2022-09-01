@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Services
 {
-    public class TestDeleteUser
+    public class TestDeleteProfile
     {
         private static Mapper ConfigureMapper()
         {
@@ -23,14 +23,14 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_OnSucess_ReturnsTrue(
-            [Frozen] Mock<IUserRepository> mockUserRepository,
+            [Frozen] Mock<IRegisterRepository> mockUserRepository,
             User toBeDeletedUser)
         {
             IMapper mapper = ConfigureMapper();
             mockUserRepository
                 .Setup(repo => repo.Delete(toBeDeletedUser.Id))
                 .ReturnsAsync(true);
-            var sut = new UserService(
+            var sut = new RegisterService(
                 mockUserRepository.Object,
                 mapper);
 
@@ -42,7 +42,7 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_Failure_ReturnsFalse(
-            [Frozen] Mock<IUserRepository> mockUserRepository,
+            [Frozen] Mock<IRegisterRepository> mockUserRepository,
             User toBeDeletedUser)
         {
             toBeDeletedUser.Id = 0;
@@ -50,7 +50,7 @@ namespace Pebolim.UnitTest.Systems.Services
             mockUserRepository
                 .Setup(repo => repo.Delete(toBeDeletedUser.Id))
                 .ReturnsAsync(false);
-            var sut = new UserService(
+            var sut = new RegisterService(
                 mockUserRepository.Object,
                 mapper);
 

@@ -9,62 +9,56 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Repositories
 {
-    public class TestDeleteUser
+    public class TestInsertProfile
     {
+
         [Fact]
-        public async Task DeleteUser_OnRun_ReturnsTrue()
+        public async Task InsertUser_OnSucess_ShouldReturnTrue()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new UserRepository(context);
+            var sut = new RegisterRepository(context);
             var user = UserFixture.GenerateUser();
 
             var response = await sut.Insert(user);
             var userId = user.Id;
+
+            Assert.NotEqual(0, userId);
+
             var userCount = context.Users?.Count(x => x.Id == userId);
 
             Assert.True(response);
             Assert.Equal(1, userCount);
-
-            response = await sut.Delete(userId);
-
-            Assert.True(response);
-        }
-
-        [Fact]
-        public async Task DeleteUser_OnRun_DeletesCorrectUser()
-        {
-            var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new UserRepository(context);
-            var user = UserFixture.GenerateUser();
-
-            var response = await sut.Insert(user);
-            var userId = user.Id;
-            var userCount = context.Users?.Count(x => x.Id == userId);
-
-            Assert.True(response);
-            Assert.Equal(1, userCount);
-
-            response = await sut.Delete(userId);
-            userCount = context.Users?.Count(x => x.Id == userId);
-
-            Assert.True(response);
-            Assert.Equal(0, userCount);
         }
 
         [Theory]
         [AutoDomainData]
-        public async Task DeleteUser_OnRun_DeletesRightUser(
+        public async Task InsertUser_OnRun_InvokeSetOnce(
             [Frozen] Mock<DbSet<User>> mockUserSet,
             [Frozen] Mock<PebolimDbContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var sut = new RegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
-            await sut.Delete(user.Id);
+
+            await sut.Insert(user);
 
             mockMySqlContext.Verify(m => m.Set<User>(), Times.Once());
         }
+
+        [Fact]
+        public async Task InsertUser_OnSucess_ShouldUpdateUserId()
+        {
+            var context = ConnectionFactory.CreateContextForSQLite();
+            var sut = new RegisterRepository(context);
+            var user = UserFixture.GenerateUser();
+
+            await sut.Insert(user);
+            var userId = user.Id;
+
+            Assert.NotEqual(0, userId);
+        }
+
     }
 }

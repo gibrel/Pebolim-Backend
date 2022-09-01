@@ -10,14 +10,14 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Repositories
 {
-    public class TestUpdateUser
+    public class TestUpdateProfile
     {
 
         [Fact]
         public async Task UpdateUser_OnSucess_ShouldReturnTrue()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new UserRepository(context);
+            var sut = new RegisterRepository(context);
             var user = UserFixture.GenerateUser();
             await sut.Insert(user);
 
@@ -36,7 +36,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new UserRepository(mockMySqlContext.Object);
+            var sut = new RegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
             await sut.Insert(user);
 

@@ -11,36 +11,36 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Controllers
 {
-    public class TestCreateUser
+    public class TestCreateProfile
     {
         [Theory]
         [AutoDomainData]
-        public async Task CreateUser_OnSucess_ReturnsStatusCode201Async(
-            [Frozen] Mock<IUserService> mockUserService,
+        public async Task CreateUser_OnSucess_ReturnsStatusCode200Async(
+            [Frozen] Mock<IRegisterService> mockUserService,
             CreateUserModel newUser,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.Add<CreateUserModel, GetUserModel, UserValidator>(newUser))
                 .ReturnsAsync(user);
-            var sut = new UserController(mockUserService.Object);
+            var sut = new RegisterController(mockUserService.Object);
 
             var result = await sut.Create(newUser) as ObjectResult;
 
-            result?.StatusCode.Should().Be(201);
+            result?.StatusCode.Should().Be(200);
         }
 
         [Theory]
         [AutoDomainData]
         public async Task CreateUser_OnSucess_InvokesUserServiceOnce(
-            [Frozen] Mock<IUserService> mockUserService,
+            [Frozen] Mock<IRegisterService> mockUserService,
             CreateUserModel newUser,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.Add<CreateUserModel, GetUserModel, UserValidator>(newUser))
                 .ReturnsAsync(user);
-            var sut = new UserController(mockUserService.Object);
+            var sut = new RegisterController(mockUserService.Object);
 
             await sut.Create(newUser);
 
@@ -51,18 +51,18 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateUser_OnSucess_ReturnUserModel(
-            [Frozen] Mock<IUserService> mockUserService,
+            [Frozen] Mock<IRegisterService> mockUserService,
             CreateUserModel newUser,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.Add<CreateUserModel, GetUserModel, UserValidator>(newUser))
                 .ReturnsAsync(user);
-            var sut = new UserController(mockUserService.Object);
+            var sut = new RegisterController(mockUserService.Object);
 
             var result = await sut.Create(newUser);
 
-            result.Should().BeOfType<CreatedResult>();
+            result.Should().BeOfType<OkObjectResult>();
             var objectResult = result as ObjectResult;
             objectResult?.Value.Should().BeOfType<GetUserModel>();
         }
@@ -70,7 +70,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateUser_OnNullInput_Return400(
-            [Frozen] Mock<IUserService> mockUserService)
+            [Frozen] Mock<IRegisterService> mockUserService)
         {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             CreateUserModel newUser = null;
@@ -81,7 +81,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
                 .Setup(service => service.Add<CreateUserModel, GetUserModel, UserValidator>(newUser))
                 .ReturnsAsync(user);
 #pragma warning restore CS8604 // Possible null reference argument.
-            var sut = new UserController(mockUserService.Object);
+            var sut = new RegisterController(mockUserService.Object);
 
 #pragma warning disable CS8604 // Possible null reference argument.
             var result = await sut.Create(newUser);
@@ -95,7 +95,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task CreateUser_OnInvalidContent_Return409(
-            [Frozen] Mock<IUserService> mockUserService,
+            [Frozen] Mock<IRegisterService> mockUserService,
             CreateUserModel newUser)
         {
             newUser.PasswordHash = "";
@@ -103,7 +103,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
             mockUserService
                 .Setup(service => service.Add<CreateUserModel, GetUserModel, UserValidator>(newUser))
                 .ReturnsAsync(user);
-            var sut = new UserController(mockUserService.Object);
+            var sut = new RegisterController(mockUserService.Object);
 
             var result = await sut.Create(newUser);
 

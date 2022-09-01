@@ -7,13 +7,12 @@ using Pebolim.API.Models;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
 using Pebolim.Service.Services;
-using Pebolim.Service.Validators;
 using Pebolim.UnitTest.Fixtures;
 using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Services
 {
-    public class TestAddUser
+    public class TestGetAllProfiles
     {
         private static Mapper ConfigureMapper()
         {
@@ -24,22 +23,22 @@ namespace Pebolim.UnitTest.Systems.Services
 
         [Theory]
         [AutoDomainData]
-        public async Task AddUser_OnSucess_ReturnsGetUserModel(
-            [Frozen] Mock<IUserRepository> mockUserRepository)
+        public async Task GetAllUsers_OnSucess_ReturnsListOfGetUserModel(
+            [Frozen] Mock<IRegisterRepository> mockUserRepository,
+            List<User> getListUserModel)
         {
             IMapper mapper = ConfigureMapper();
-            User insertUser = UserFixture.GenerateUser();
-            CreateUserModel newUser = new(insertUser.Username, insertUser.PasswordHash);
             mockUserRepository
-                .Setup(repo => repo.Insert(insertUser))
-                .ReturnsAsync(true);
-            var sut = new UserService(
+                .Setup(repo => repo.Select())
+                .ReturnsAsync(getListUserModel);
+            var sut = new RegisterService(
                 mockUserRepository.Object,
                 mapper);
 
-            var result = await sut.Add<CreateUserModel, GetUserModel, UserValidator>(newUser);
+            var result = await sut.GetAll<GetUserModel>();
 
-            result.Should().BeOfType<GetUserModel>();
+            result.Should().BeOfType<List<GetUserModel>>();
         }
+
     }
 }

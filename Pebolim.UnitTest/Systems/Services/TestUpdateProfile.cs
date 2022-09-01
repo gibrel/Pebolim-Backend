@@ -13,7 +13,7 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Services
 {
-    public class TestUpdateUser
+    public class TestUpdateProfile
     {
         private static Mapper ConfigureMapper()
         {
@@ -25,7 +25,7 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task UpdateUser_OnSucess_ReturnsGetUserModel(
-            [Frozen] Mock<IUserRepository> mockUserRepository)
+            [Frozen] Mock<IRegisterRepository> mockUserRepository)
         {
             IMapper mapper = ConfigureMapper();
             User user = UserFixture.GenerateUser();
@@ -37,7 +37,7 @@ namespace Pebolim.UnitTest.Systems.Services
             mockUserRepository
                 .Setup(repo => repo.Update(user))
                 .ReturnsAsync(true);
-            var sut = new UserService(
+            var sut = new RegisterService(
                 mockUserRepository.Object,
                 mapper);
 

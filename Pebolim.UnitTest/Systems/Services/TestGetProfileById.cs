@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Pebolim.UnitTest.Systems.Services
 {
-    public class TestGetByIdUser
+    public class TestGetProfileById
     {
         private static Mapper ConfigureMapper()
         {
@@ -24,14 +24,14 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task GetUserById_OnSucess_ReturnsGetUserModel(
-            [Frozen] Mock<IUserRepository> mockUserRepository,
+            [Frozen] Mock<IRegisterRepository> mockUserRepository,
             User user)
         {
             IMapper mapper = ConfigureMapper();
             mockUserRepository
                 .Setup(repo => repo.Select(user.Id))
                 .ReturnsAsync(user);
-            var sut = new UserService(
+            var sut = new RegisterService(
                 mockUserRepository.Object,
                 mapper);
 

@@ -1,6 +1,6 @@
 ﻿namespace Pebolim.UnitTest.Systems.Validators
 {
-    public class TestValidateUser
+    public class TestValidate
     {
         //
     }
