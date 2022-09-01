@@ -24,14 +24,14 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task GetAllUsers_OnSucess_ReturnsListOfGetUserModel(
-            [Frozen] Mock<IRegisterRepository> mockUserRepository,
+            [Frozen] Mock<IProfileRegisterRepository> mockUserRepository,
             List<User> getListUserModel)
         {
             IMapper mapper = ConfigureMapper();
             mockUserRepository
                 .Setup(repo => repo.Select())
                 .ReturnsAsync(getListUserModel);
-            var sut = new RegisterService(
+            var sut = new ProfileRegisterService(
                 mockUserRepository.Object,
                 mapper);
 

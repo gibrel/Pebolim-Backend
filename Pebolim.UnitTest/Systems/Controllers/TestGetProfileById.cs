@@ -15,13 +15,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetUserById_OnSucess_ReturnsStatusCode200Async(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.GetById<GetUserModel>(user.Id))
                 .ReturnsAsync(user);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Get(user.Id) as ObjectResult;
 
@@ -31,13 +31,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetUserById_OnSucess_InvokesUserServiceOnce(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.GetById<GetUserModel>(user.Id))
                 .ReturnsAsync(user);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             await sut.Get(user.Id);
 
@@ -48,13 +48,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetUserById_OnSucess_ReturnUserModel(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             GetUserModel user)
         {
             mockUserService
                 .Setup(service => service.GetById<GetUserModel>(user.Id))
                 .ReturnsAsync(user);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Get(user.Id);
 
@@ -68,13 +68,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [InlineAutoData(-1)]
         public async Task GetUserById_OnInvalidInput_Return400(
             int userId,
-            [Frozen] Mock<IRegisterService> mockUserService)
+            [Frozen] Mock<IProfileRegisterService> mockUserService)
         {
             GetUserModel? user = null;
             mockUserService
                 .Setup(service => service.GetById<GetUserModel>(userId))
                 .ReturnsAsync(user);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Get(userId);
 
@@ -86,14 +86,14 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task GetUserById_OnNoUserFound_Return404(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             int userId)
         {
             GetUserModel? user = null;
             mockUserService
                 .Setup(service => service.GetById<GetUserModel>(userId))
                 .ReturnsAsync(user);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Get(userId);
 

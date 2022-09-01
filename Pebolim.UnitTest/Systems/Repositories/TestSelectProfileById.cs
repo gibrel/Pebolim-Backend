@@ -17,12 +17,12 @@ namespace Pebolim.UnitTest.Systems.Repositories
         [AutoDomainData]
         public async Task SelectByIdUser_OnRun_InvokeSaveChangesOnce(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
+            [Frozen] Mock<DatabaseContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new RegisterRepository(mockMySqlContext.Object);
+            var sut = new ProfileRegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
             await sut.Select(user.Id);
@@ -34,7 +34,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
         public async Task SelectByIdUser_OnSucess_ShouldReturnUser()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new RegisterRepository(context);
+            var sut = new ProfileRegisterRepository(context);
             var user = UserFixture.GenerateUser();
 
             var response = await sut.Insert(user);
@@ -53,12 +53,12 @@ namespace Pebolim.UnitTest.Systems.Repositories
         [AutoDomainData]
         public async Task SelectByIdUser_OnSucess_ShouldHaveSameId(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
+            [Frozen] Mock<DatabaseContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new RegisterRepository(mockMySqlContext.Object);
+            var sut = new ProfileRegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);

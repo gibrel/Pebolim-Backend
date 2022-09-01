@@ -14,13 +14,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_OnSucess_ReturnsStatusCode200Async(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             int userId)
         {
             mockUserService
                 .Setup(service => service.Delete(userId))
                 .ReturnsAsync(true);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Delete(userId) as ObjectResult;
 
@@ -30,13 +30,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_OnSucess_InvokesUserServiceOnce(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             int userId)
         {
             mockUserService
                 .Setup(service => service.Delete(userId))
                 .ReturnsAsync(true);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             await sut.Delete(userId);
 
@@ -49,12 +49,12 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [InlineAutoData(-1)]
         public async Task DeleteUser_OnInvalidInput_Return400(
             int userId,
-            [Frozen] Mock<IRegisterService> mockUserService)
+            [Frozen] Mock<IProfileRegisterService> mockUserService)
         {
             mockUserService
                 .Setup(service => service.Delete(userId))
                 .ReturnsAsync(false);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Delete(userId);
 
@@ -66,13 +66,13 @@ namespace Pebolim.UnitTest.Systems.Controllers
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_OnNoUserFound_Return404(
-            [Frozen] Mock<IRegisterService> mockUserService,
+            [Frozen] Mock<IProfileRegisterService> mockUserService,
             int userId)
         {
             mockUserService
                 .Setup(service => service.Delete(userId))
                 .ReturnsAsync(false);
-            var sut = new RegisterController(mockUserService.Object);
+            var sut = new ProfileRegisterController(mockUserService.Object);
 
             var result = await sut.Delete(userId);
 

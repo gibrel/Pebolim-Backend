@@ -23,14 +23,14 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_OnSucess_ReturnsTrue(
-            [Frozen] Mock<IRegisterRepository> mockUserRepository,
+            [Frozen] Mock<IProfileRegisterRepository> mockUserRepository,
             User toBeDeletedUser)
         {
             IMapper mapper = ConfigureMapper();
             mockUserRepository
                 .Setup(repo => repo.Delete(toBeDeletedUser.Id))
                 .ReturnsAsync(true);
-            var sut = new RegisterService(
+            var sut = new ProfileRegisterService(
                 mockUserRepository.Object,
                 mapper);
 
@@ -42,7 +42,7 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task DeleteUser_Failure_ReturnsFalse(
-            [Frozen] Mock<IRegisterRepository> mockUserRepository,
+            [Frozen] Mock<IProfileRegisterRepository> mockUserRepository,
             User toBeDeletedUser)
         {
             toBeDeletedUser.Id = 0;
@@ -50,7 +50,7 @@ namespace Pebolim.UnitTest.Systems.Services
             mockUserRepository
                 .Setup(repo => repo.Delete(toBeDeletedUser.Id))
                 .ReturnsAsync(false);
-            var sut = new RegisterService(
+            var sut = new ProfileRegisterService(
                 mockUserRepository.Object,
                 mapper);
 

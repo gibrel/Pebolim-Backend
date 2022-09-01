@@ -16,7 +16,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
         public async Task InsertUser_OnSucess_ShouldReturnTrue()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new RegisterRepository(context);
+            var sut = new ProfileRegisterRepository(context);
             var user = UserFixture.GenerateUser();
 
             var response = await sut.Insert(user);
@@ -34,12 +34,12 @@ namespace Pebolim.UnitTest.Systems.Repositories
         [AutoDomainData]
         public async Task InsertUser_OnRun_InvokeSetOnce(
             [Frozen] Mock<DbSet<User>> mockUserSet,
-            [Frozen] Mock<PebolimDbContext> mockMySqlContext)
+            [Frozen] Mock<DatabaseContext> mockMySqlContext)
         {
             mockMySqlContext
                 .Setup(context => context.Users)
                 .Returns(mockUserSet.Object);
-            var sut = new RegisterRepository(mockMySqlContext.Object);
+            var sut = new ProfileRegisterRepository(mockMySqlContext.Object);
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);
@@ -51,7 +51,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
         public async Task InsertUser_OnSucess_ShouldUpdateUserId()
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new RegisterRepository(context);
+            var sut = new ProfileRegisterRepository(context);
             var user = UserFixture.GenerateUser();
 
             await sut.Insert(user);

@@ -25,7 +25,7 @@ namespace Pebolim.UnitTest.Systems.Services
         [Theory]
         [AutoDomainData]
         public async Task AddUser_OnSucess_ReturnsGetUserModel(
-            [Frozen] Mock<IRegisterRepository> mockUserRepository)
+            [Frozen] Mock<IProfileRegisterRepository> mockUserRepository)
         {
             IMapper mapper = ConfigureMapper();
             User insertUser = UserFixture.GenerateUser();
@@ -33,7 +33,7 @@ namespace Pebolim.UnitTest.Systems.Services
             mockUserRepository
                 .Setup(repo => repo.Insert(insertUser))
                 .ReturnsAsync(true);
-            var sut = new RegisterService(
+            var sut = new ProfileRegisterService(
                 mockUserRepository.Object,
                 mapper);
 

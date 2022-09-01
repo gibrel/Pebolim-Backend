@@ -16,7 +16,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
             [Range(3, 6)] int numberOfUsers)
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new RegisterRepository(context);
+            var sut = new ProfileRegisterRepository(context);
 
             List<User> insertedUsers = new();
             for (int i = 0; i < numberOfUsers; i++)
@@ -36,7 +36,7 @@ namespace Pebolim.UnitTest.Systems.Repositories
             [Range(3, 6)] int numberOfUsers)
         {
             var context = ConnectionFactory.CreateContextForSQLite();
-            var sut = new RegisterRepository(context);
+            var sut = new ProfileRegisterRepository(context);
 
             List<User> insertedUsers = new();
             for (int i = 0; i < numberOfUsers; i++)
