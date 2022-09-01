@@ -3,9 +3,9 @@ using Pebolim.Domain.Entities;
 
 namespace Pebolim.API.Configurations
 {
-    public class UserMapProfile : AutoMapper.Profile
+    public class ProfileMapProfile : AutoMapper.Profile
     {
-        public UserMapProfile()
+        public ProfileMapProfile()
         {
         }
     }
