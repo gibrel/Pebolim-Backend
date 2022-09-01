@@ -46,7 +46,7 @@ namespace Pebolim.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>(new UserMap().Configure);
-            modelBuilder.Entity<UserProfile>(new ProfileMap().Configure);
+            modelBuilder.Entity<UserProfile>(new UserProfileMap().Configure);
             modelBuilder.Entity<Team>(new TeamMap().Configure);
         }
     }

@@ -12,9 +12,8 @@ namespace Pebolim.Data.Mapping
 
             builder.HasKey(t => t.Id);
 
-            builder.HasOne(t => t.Profile)
+            builder.HasOne(t => t.UserProfile)
                 .WithOne(p => p.Team)
-                .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

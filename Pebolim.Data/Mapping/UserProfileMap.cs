@@ -4,7 +4,7 @@ using Pebolim.Domain.Entities;
 
 namespace Pebolim.Data.Mapping
 {
-    public class ProfileMap : IEntityTypeConfiguration<UserProfile>
+    public class UserProfileMap : IEntityTypeConfiguration<UserProfile>
     {
         public void Configure(EntityTypeBuilder<UserProfile> builder)
         {
@@ -19,8 +19,13 @@ namespace Pebolim.Data.Mapping
                 .HasColumnType("varchar(100)");
 
             builder.HasOne(p => p.User)
-                .WithMany(u => u.Profiles)
+                .WithMany(u => u.UserProfiles)
                 .IsRequired()
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            builder.HasOne(p => p.Team)
+                .WithOne(t => t.UserProfile)
+                .HasForeignKey<Team>(t => t.UserProfileId)
                 .OnDelete(DeleteBehavior.ClientCascade);
         }
     }

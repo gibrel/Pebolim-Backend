@@ -30,7 +30,7 @@ namespace Pebolim.Data.Mapping
                 .HasColumnName("Salt")
                 .HasColumnType("char(64)");
 
-            builder.HasMany(g => g.Profiles)
+            builder.HasMany(g => g.UserProfiles)
                 .WithOne();
         }
     }
