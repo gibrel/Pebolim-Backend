@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Pebolim.Domain.Interfaces;
-using Pebolim.Service.Requests;
-using Pebolim.Service.Responses;
+using Pebolim.Service.Models;
 
 namespace Pebolim.API.Controllers
 {
@@ -23,7 +21,7 @@ namespace Pebolim.API.Controllers
         {
             if (request.Username == null || request.Password == null) return BadRequest();
             var (success, content) = await _authenticationService.Register(request.Username, request.Password);
-            if(!success) return BadRequest(content);
+            if (!success) return BadRequest(content);
 
             return await Login(request);
         }
@@ -35,7 +33,7 @@ namespace Pebolim.API.Controllers
             var (success, content) = await _authenticationService.Login(request.Username, request.Password);
             if (!success) return BadRequest(content);
 
-            return Ok(new AuthenticationResponse() { Token = content});
+            return Ok(new AuthenticationResponse() { Token = content });
         }
     }
 }
