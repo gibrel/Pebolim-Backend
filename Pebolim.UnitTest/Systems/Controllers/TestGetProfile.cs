@@ -2,11 +2,11 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Pebolim.API.Controllers;
-using Pebolim.API.Models;
+using Pebolim.WebAPI.Controllers;
 using Pebolim.Domain.Interfaces;
 using Pebolim.UnitTest.Fixtures;
 using Xunit;
+using Pebolim.Service.Models;
 
 namespace Pebolim.UnitTest.Systems.Controllers
 {
@@ -23,7 +23,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
                 .ReturnsAsync(users);
             var sut = new ProfileRegisterController(mockUserService.Object);
 
-            var result = await sut.Get() as ObjectResult;
+            var result = await sut.Get(0) as ObjectResult;
 
             result?.StatusCode.Should().Be(200);
         }
@@ -39,7 +39,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
                 .ReturnsAsync(users);
             var sut = new ProfileRegisterController(mockUserService.Object);
 
-            await sut.Get();
+            await sut.Get(0);
 
             mockUserService.Verify(
                 service => service.GetAll<GetUserModel>(), Times.Once());
@@ -56,7 +56,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
                 .ReturnsAsync(users);
             var sut = new ProfileRegisterController(mockUserService.Object);
 
-            var result = await sut.Get();
+            var result = await sut.Get(0);
 
             result.Should().BeOfType<OkObjectResult>();
             var objectResult = result as ObjectResult;
@@ -73,7 +73,7 @@ namespace Pebolim.UnitTest.Systems.Controllers
                 .ReturnsAsync(new List<GetUserModel>());
             var sut = new ProfileRegisterController(mockUserService.Object);
 
-            var result = await sut.Get();
+            var result = await sut.Get(0);
 
             result.Should().BeOfType<NotFoundResult>();
             var objectResult = result as NotFoundResult;

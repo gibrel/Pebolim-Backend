@@ -2,8 +2,8 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Pebolim.API.Controllers;
-using Pebolim.API.Models;
+using Pebolim.WebAPI.Controllers;
+using Pebolim.Service.Models;
 using Pebolim.Domain.Interfaces;
 using Pebolim.UnitTest.Fixtures;
 using Xunit;

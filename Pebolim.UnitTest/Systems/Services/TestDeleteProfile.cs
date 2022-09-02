@@ -2,7 +2,7 @@
 using AutoMapper;
 using FluentAssertions;
 using Moq;
-using Pebolim.API.Configurations;
+using Pebolim.WebAPI.Configurations;
 using Pebolim.Domain.Entities;
 using Pebolim.Domain.Interfaces;
 using Pebolim.Service.Services;

@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pebolim.API\Pebolim.API.csproj" />
     <ProjectReference Include="..\Pebolim.Data\Pebolim.Data.csproj" />
     <ProjectReference Include="..\Pebolim.Domain\Pebolim.Domain.csproj" />
     <ProjectReference Include="..\Pebolim.Service\Pebolim.Service.csproj" />
+    <ProjectReference Include="..\Pebolim.WebAPI\Pebolim.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
