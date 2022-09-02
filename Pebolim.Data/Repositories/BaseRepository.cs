@@ -7,9 +7,9 @@ namespace Pebolim.Data.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly PebolimDbContext _pebolimDbContext;
+        protected readonly DatabaseContext _pebolimDbContext;
 
-        public BaseRepository(PebolimDbContext pebolimDbContext)
+        public BaseRepository(DatabaseContext pebolimDbContext)
         {
             _pebolimDbContext = pebolimDbContext;
         }

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Pebolim.Service.Services
 {
-    public class AuthenticationService : BaseService<User>, Domain.Interfaces.IAuthenticationService
+    public class AuthenticationService : BaseService<User>, IAuthenticationService
     {
         private readonly WebApiConfigurations _configuration;
         protected readonly IAuthenticationRepository _authenticationRepository;

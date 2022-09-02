@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pebolim.Data.Context;
 
@@ -10,9 +11,10 @@ using Pebolim.Data.Context;
 namespace Pebolim.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class MySqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220901204714_Migration.001")]
+    partial class Migration001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

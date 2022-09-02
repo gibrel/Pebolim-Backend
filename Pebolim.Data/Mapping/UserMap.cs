@@ -29,6 +29,9 @@ namespace Pebolim.Data.Mapping
                 .IsRequired()
                 .HasColumnName("Salt")
                 .HasColumnType("char(64)");
+
+            builder.HasMany(g => g.UserProfiles)
+                .WithOne();
         }
     }
 }

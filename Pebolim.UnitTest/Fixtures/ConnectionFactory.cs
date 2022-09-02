@@ -8,14 +8,14 @@ namespace Pebolim.UnitTest.Fixtures
     {
         private bool disposedValue = false;
 
-        public static PebolimDbContext CreateContextForSQLite()
+        public static DatabaseContext CreateContextForSQLite()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
-            var option = new DbContextOptionsBuilder<PebolimDbContext>().UseSqlite(connection).Options;
+            var option = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connection).Options;
 
-            var context = new PebolimDbContext(option);
+            var context = new DatabaseContext(option);
 
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
