@@ -31,7 +31,7 @@ namespace Pebolim.Data.Context
         {
             if (_configuration.DatabaseType.Equals(DatabaseTypes.MySQL.ToString()))
             {
-                string connectionString = _configuration.ConnectionSettings ?? "server=localhost; port=3306; database=pebolim_db_d; user=pebolim_user; password=V8JjZdW!gx8E8wWp";
+                string connectionString = _configuration.ConnectionSettings;
 
                 optionsBuilder.UseMySql(connectionString,
                     ServerVersion.AutoDetect(connectionString), opt =>
